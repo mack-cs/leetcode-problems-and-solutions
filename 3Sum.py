@@ -34,7 +34,7 @@ def threeSum(nums):
     nums.sort()
 
     for i, a in enumerate(nums):
-        if i > 0 and nums[i] == nums[i - 1]: # skip duplicates
+        if i > 0 and nums[i] == nums[i - 1]: # skip if the value is already used
             continue
 
         l, r = i + 1, len(nums) - 1
@@ -52,12 +52,18 @@ def threeSum(nums):
                     l += 1
     return res
 
+
+nums = [-1,0,1,2,-1,-4]
+## [[-1,-1,2],[-1,0,1]]
+print(threeSum(nums))
+
+
 def threeSumWTarget(nums, target):
     res = []
     nums.sort()
 
     for i, a in enumerate(nums):
-        if i > 0 and nums[i] == nums[i - 1]: # skip if the value is already used
+        if i > 0 and a == nums[i - 1]: # skip if the value is already used
             continue
 
         l, r = i + 1, len(nums) - 1

@@ -29,12 +29,16 @@ s consists of English letters, digits, symbols and spaces.
 """
 
 def lengthOfLongestSubstring(s):
-        dups = set(s[0])
-        left, right = 0, 1
-        # dups.add(s[0])
-        while right < len(s):
-            if s[right] not in dups:
-                
+        subStr = set()
+        size = 0
+        left = 0
+        for right in range(len(s)):
+            while s[right] in subStr:
+                subStr.remove(s[left])
+                left += 1
+            subStr.add(s[right])
+            size = max(size, right - left + 1)
+        return size
                 
             
 
@@ -47,4 +51,4 @@ s2 = "bbbbb"
 s = "pwwkew"
 #Output: 3
 
-print(lengthOfLongestSubstring(s1))
+print(lengthOfLongestSubstring(s))

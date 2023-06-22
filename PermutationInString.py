@@ -42,6 +42,26 @@ def checkInclusion(s1: str, s2: str) -> bool:
 
     return False
 
+def checkInclusion(self, s1: str, s2: str) -> bool:
+        s1_counter = [0] * 26
+        s2_counter = [0] * 26
+
+        for char in s1:
+            s1_counter[ord(char) - ord('a')] += 1
+        
+        l = 0
+        for r in range(len(s2)):
+            s2_counter[ord(s2[r]) - ord('a')] += 1
+
+            if r - l >= len(s1):
+                s2_counter[ord(s2[r]) - ord('a')] -= 1
+                l += 1
+            if s1_counter == s2_counter:
+                return True 
+
+        return False
+
+
 print(checkInclusion(s1, s2))
 """
 The code initializes two lists, counter_s1 and counter_s2, to keep track of the counts of each character in s1 and the 

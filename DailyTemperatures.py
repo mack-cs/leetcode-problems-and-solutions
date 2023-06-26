@@ -45,11 +45,9 @@ def dailyTemperatures(temperatures):
     stack = [] # index and temp
     for i,t in enumerate(temperatures):
         while stack and t > stack[-1][0]:
-            stackT
-            if temperatures[i] < temperatures[j][-1][0]:
-                output[i] = (j - i)
-                break
-            j += 1
+            stackT, stackInd = stack.pop()
+            output[stackInd] = (i - stackInd)
+        stack.append([t, i])
     return output
 
 temperatures = [73,74,75,71,69,72,76,73]

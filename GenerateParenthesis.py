@@ -39,3 +39,22 @@ def generateParenthesis(n):
 n = 4
 #Output: ["((()))","(()())","(())()","()(())","()()()"]
 print(generateParenthesis(n))
+
+def generateParenthesis(n):
+            result = []
+            backtrack(result, "", 0, 0, n)
+            return result
+
+def backtrack(result, current, open_count, close_count, max_pairs):
+    if len(current) == max_pairs * 2:
+        result.append(current) 
+        return
+    
+    if open_count < max_pairs:
+        backtrack(result, current + "(", open_count + 1, close_count, max_pairs)
+    
+    if close_count < open_count:
+        backtrack(result, current + ")", open_count, close_count + 1, max_pairs)
+
+print(generateParenthesis(n))
+

@@ -34,3 +34,7 @@ def search(nums, target):
         else:
             end = mid - 1
     return -1
+
+nums = [-1,0,3,5,9,12]
+target = 3
+search(nums, target)

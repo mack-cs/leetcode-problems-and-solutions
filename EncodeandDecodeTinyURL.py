@@ -55,31 +55,44 @@ class Codec:
 import base64
 class Codec:
     def __init__(self):
-        self.encodeURL = {}
-        self.decodeURL = {}
+        self.encodeDict = {}
+        self.decodeDict = {}
         self.base = "https://tinyurl.com/"
     
     def encode(self, longUrl: str) -> str:
         """Encodes a URL to a shortened URL.
         """
-        shortUrl = base64.urlsafe_b64decode(longUrl.encode()).decode()
-        # Add padding characters (=) if necessary
-        while len(shortUrl) % 4 != 0:
-            shortUrl += "="
+        shortUrl = base64.urlsafe_b64encode(longUrl.encode()).decode()
         shortUrl = shortUrl.rstrip("=")
         shortUrl = shortUrl[:8]
-
-        if longUrl not in self.encodeURL:
-            self.encodeURL[longUrl] = shortUrl
-            self.decodeURL[shortUrl] = longUrl
-        return self.encodeURL[longUrl]
+        
+        if longUrl not in self.encodeDict:
+            self.encodeDict[longUrl] = shortUrl
+            self.decodeDict[shortUrl] = longUrl
+        return self.encodeDict[longUrl]
         
 
     def decode(self, shortUrl: str) -> str:
         """Decodes a shortened URL to its original URL.
         """
-        return self.decodeURL[shortUrl]
+        return self.decodeDict[shortUrl]
     
 codec = Codec()
 url = "https://leetcode.com/problems/design-tinyurl"
-print(codec.decode(codec.encode(url)))
+print(codec.encode(codec.encode(url)))
+
+# import base64
+
+# def create_short_url(url):
+#     encoded_url = base64.urlsafe_b64encode(url.encode()).decode()
+#     while len(encoded_url) % 4 != 0:
+#         encoded_url += "="
+#     encoded_url = encoded_url.rstrip("=")
+#     short_url = encoded_url[:8]
+#     return short_url
+
+# long_url = "https://leetcode.com/problems/design-tinyurl"
+# short_url = create_short_url(long_url)
+
+# print("Original URL:", long_url)
+# print("Short URL:", short_url)

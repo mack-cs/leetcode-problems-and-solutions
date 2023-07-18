@@ -24,8 +24,16 @@ Output: 3
  
 """
 def leastBricks(wall):
+    countGap = {0 : 0} #mapping positions : count of gas
+    for r in wall:
+        total = 0
+        for b in r[:-1]:
+            total += b
+            countGap[total] = 1 + countGap.get(total, 0)
+    return len(wall) - max(countGap.values())
 
 
 
 wall = [[1,2,2,1],[3,1,2],[1,3,2],[2,4],[3,1,2],[1,3,1,1]]
 # Output: 2
+print(leastBricks(wall))

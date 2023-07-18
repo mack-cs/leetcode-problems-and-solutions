@@ -37,3 +37,10 @@ Constraints:
 1 <= prices.length <= 3 * 104
 0 <= prices[i] <= 104
 """
+def maxProfit(prices):
+    profit = 0 
+
+    for i in range(len(prices)):
+        if prices[i] > prices[i - 1]:
+            profit += prices[i] - prices[i - 1]
+    return profit

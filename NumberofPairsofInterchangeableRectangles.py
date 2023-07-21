@@ -33,3 +33,30 @@ n == rectangles.length
 rectangles[i].length == 2
 1 <= widthi, heighti <= 105
 """
+### Bruite Force
+def interchangeableRectangles(rectangles):
+    res = 0
+    for i in range(len(rectangles)):
+        for j in range(i + 1, len(rectangles)):
+            area1 = rectangles[i][0]/rectangles[i][1]
+            area2 = rectangles[j][0]/rectangles[j][1]
+            if area1 == area2:
+                res += 1
+    return res
+
+rectangles = [[4,8],[3,6],[10,20],[15,30]]
+# Output: 6
+print(interchangeableRectangles(rectangles))
+def interchangeableRectangles(rectangles):
+    count = {}
+    for w, h in rectangles:
+        count[w / h] = 1 + count.get(w / h, 0)
+    
+    res = 0
+    for c in count.values():
+        if c > 1: #check if more than 1 to create a pair
+            res += (c * (c - 1)) // 2
+    return res
+
+    return res
+

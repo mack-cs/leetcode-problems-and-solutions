@@ -45,3 +45,66 @@ Constraints:
 ideas[i] consists of lowercase English letters.
 All the strings in ideas are unique.
 """
+from collections import defaultdict
+def distinctNames(ideas):
+    # map 1st char -> list of word sufixes
+    wordMap = defaultdict(set)
+    for w in ideas:
+        wordMap[w[0]].add(w[1:])
+
+    res = 0
+    for char1 in wordMap:
+        for char2 in wordMap:
+            if char1 == char2:
+                continue
+            intersect = 0
+            for w in wordMap[char1]:
+                if w in wordMap[char2]:
+                    intersect += 1
+            distinct1 = len(wordMap[char1]) - intersect
+            distinct2 = len(wordMap[char2]) - intersect
+            print(f"{distinct1}-{distinct2}")
+            res += distinct1 * distinct2
+    return res
+
+#### Simplified Version
+def distinctNames(ideas):
+    res = 0
+    wordMap = {}
+
+    for w in ideas:
+        first_char = w[0]
+        suffix = w[1:]
+        wordMap.setdefault(first_char, set()).add(suffix)
+
+    for char1, suffixes1 in wordMap.items():
+        for char2, suffixes2 in wordMap.items():
+            if char1 == char2:
+                continue
+            intersect = len(suffixes1 & suffixes2)
+            distinct1 = len(suffixes1) - intersect
+            distinct2 = len(suffixes2) - intersect
+            res += distinct1 * distinct2
+
+    return res
+
+### Simplified version 2
+def distinctNames(ideas):
+    wordMap = defaultdict(set)
+    res = 0
+
+    for idea in ideas:
+        wordMap[idea[0]].add(idea[1:])
+    
+    for char1, suffixes1 in wordMap.items():
+        for char2, suffixes2 in wordMap.items():
+            if char1 == char2:
+                continue
+            intersection = len(suffixes1 & suffixes2) 
+            distinct1 = len(wordMap[char1]) - intersection
+            distinct2 = len(wordMap[char2]) - intersection
+            res += distinct1 * distinct2
+    return res
+
+ideas = ["coffee","donuts","time","toffee"]
+print(distinctNames(ideas))

@@ -55,33 +55,8 @@ def maxProduct(s):
                 if m1 & m2 == 0:
                     res = max(res, pali[m1] * pali[m2])
         return res
-    
-
-### Another Solution
-def is_palindrome(s):
-    return s == s[::-1]
-
-def generate_subsequences(s):
-    subsequences = set()
-    n = len(s)
-    for i in range(1, 1 << n):
-        subseq = "".join(s[j] for j in range(n) if i & (1 << j))
-        subsequences.add(subseq)
-    return subsequences
-
-def max_product_of_palindromic_subsequences(s):
-    subsequences = generate_subsequences(s)
-    max_product = 0
-
-    for subseq1 in subsequences:
-        if is_palindrome(subseq1):
-            for subseq2 in subsequences:
-                if is_palindrome(subseq2):
-                    max_product = max(max_product, len(subseq1) * len(subseq2))
-
-    return max_product
 
 # Test cases
-print(max_product_of_palindromic_subsequences("leetcodecom"))  # Output: 9
-print(max_product_of_palindromic_subsequences("bb"))  # Output: 1
-print(max_product_of_palindromic_subsequences("accbcaxxcxx"))  # Output: 25
+print(maxProduct("leetcodecom"))  # Output: 9
+print(maxProduct("bb"))  # Output: 1
+print(maxProduct("accbcaxxcxx"))  # Output: 25

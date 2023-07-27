@@ -26,20 +26,35 @@ Constraints:
 s and p consist of lowercase English letters.
 """
 def findAnagrams(s, p):
+    """
+    First loop to the length of the search (p) and add the chars with their counts to the counters for both
+    pCount and sCount, compare the count if they match then the 1st part which is 0 index is appended to the result variable.
+    for the second loop initialise one pointer l for left that starts from the beigining of the loop subtracting for each letter
+    whilst the right adds for each char
+    if the then check for the letter that have 0 value and pop them out of the dictionary
+    compare the sCount to the pCount if they match add the 'l' index to the result
+    """
     if len(p) > len(s): return []
     pCount, sCount = {}, {}
     for i in range(len(p)):
         pCount[p[i]] = 1 + pCount.get(p[i], 0)
         sCount[s[i]] = 1 + sCount.get(s[i], 0)
+    
     res = [0] if sCount == pCount else []
+    
     l = 0
     for r in range(len(p), len(s)):
         sCount[s[r]] = 1 + sCount.get(s[r], 0)
         sCount[s[l]] -= 1
-
+        
         if sCount[s[l]] == 0:
             sCount.pop(s[l])
         l += 1
         if sCount == pCount:
             res.append(l)
     return res
+
+s = "cbaebabacd"
+p = "abc"
+# Output: [0,6]
+print(findAnagrams(s, p))
